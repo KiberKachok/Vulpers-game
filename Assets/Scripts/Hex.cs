@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using System;
+using Magic;
 public class Hex : MonoBehaviour
 {
     [SerializeField]
@@ -11,7 +12,10 @@ public class Hex : MonoBehaviour
     public Vector2 Coords;
     public Hex[] neighbours = new Hex[6];
 
-    void Awake()
+    public Structure aboveStructure;
+    public Unit aboveUnit;
+
+    protected void Awake()
     {
         AddHex();
     }
@@ -28,10 +32,39 @@ public class Hex : MonoBehaviour
         
     }
 
+    public void OnStep(Unit unit)
+    {
+        if (aboveStructure && aboveStructure as Field)
+        {
+            Destroy(aboveStructure.gameObject);
+            if (unit.team != Team.Neutral)
+            {
+                unit.FindNearestVillage(unit.team).Food++;
+            }
+        }
+
+        foreach(Hex hex in neighbours)
+        {
+            if (hex)
+            {
+                hex.OnNeighbourStep(unit);
+            }
+        }
+    }
+
+    public void OnNeighbourStep(Unit unit)
+    {
+
+    }
 
     [ContextMenu("Добавить в Хекс в список")]
     public void AddHex()
     {
+        if (!gameController)
+        {
+            gameController = GameObject.Find("GameController").GetComponent<GameController>();
+        }
+
         if (!gameController.HexDict.ContainsKey(Coords))
         {
             gameController.HexDict.Add(Coords, this);

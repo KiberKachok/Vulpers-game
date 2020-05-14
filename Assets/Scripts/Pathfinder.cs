@@ -61,4 +61,25 @@ public class Pathfinder : MonoBehaviour
         path.Reverse();
         return path;
     }
+
+    public static List<Hex> neighboursReturner(Hex hex, int dimension)
+    {
+        List<Hex> neighbours = new List<Hex> { hex };
+
+        for (int i = 0; i < dimension; i++)
+        {
+            List<Hex> interNei = neighbours.GetRange(0, neighbours.Count);
+            foreach (Hex j in interNei)
+            {
+                foreach (Hex k in j.neighbours)
+                {
+                    if (!neighbours.Contains(k) && k != null)
+                    {
+                        neighbours.Add(k);
+                    }
+                }
+            }
+        }
+        return neighbours;
+    }
 }
