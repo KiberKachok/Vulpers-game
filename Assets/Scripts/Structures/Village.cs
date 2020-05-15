@@ -5,18 +5,24 @@ using Magic;
 
 public class Village : Structure
 {
+    public VillageState state;
+
+    [Header("Ресурсы")]
     public float Gold = 0;
     public float Iron = 0;
     public float Food = 0;
     public float Wood = 0;
 
     //от 1 до 10
+    [Header("Цены")]
     public float valueIron = 6;
     public float valueFood = 6;
     public float valueWood = 6;
 
+    [Header("Еда")]
     public float hungerTick = 1f;
 
+    [Header("Налоги")]
     public float goldTick = 1f;
     public float goldPerTick = 10f;
 
@@ -24,16 +30,14 @@ public class Village : Structure
     Coroutine goldProcess;
     Coroutine spawnProcess;
 
-    public Hex spawnHex;
-
-    public VillageState state;
-
+    [Header("Время на создание юнитов")]
     public float WorkerTime = 4.5f;
     public float WarriorTime = 6;
     public float ArcherTime = 11;
     public float CaravanTime = 15;
     public float ScoutTime = 7;
 
+    [Header("Префабы юнитов")]
     [SerializeField]
     GameObject WorkerPref;
 
@@ -48,12 +52,9 @@ public class Village : Structure
 
     [SerializeField]
     GameObject ScoutPref;
+
+    [Header("Префабы построек")]
     public float BuildTime = 2;
-
-    public List<Structure> structures = new List<Structure>();
-
-    [HideInInspector]
-    public bool isCreating = false;
 
     [SerializeField]
     GameObject minePref;
@@ -63,6 +64,13 @@ public class Village : Structure
 
     [SerializeField]
     GameObject sawmillPref;
+
+    public Hex spawnHex;
+
+    public List<Structure> structures = new List<Structure>();
+
+    [HideInInspector]
+    public bool isCreating = false;
 
     // Start is called before the first frame update
     void Start()
@@ -79,15 +87,6 @@ public class Village : Structure
     void Update()
     {
         
-    }
-
-    public Hex HEXTOBILD;
-    public ResourceType TIP;
-
-    [ContextMenu("Build")]
-    public void qqq()
-    {
-        StartCoroutine(Build(HEXTOBILD, TIP));
     }
 
     public void OnMouseOver()

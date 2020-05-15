@@ -6,13 +6,16 @@ using System;
 using Magic;
 public class Hex : MonoBehaviour
 {
-    [SerializeField]
-    GameController gameController;
-
     public Vector2 Coords;
     public Hex[] neighbours = new Hex[6];
 
+    [HideInInspector]
+    GameController gameController;
+
+    [HideInInspector]
     public Structure aboveStructure;
+
+    [HideInInspector]
     public Unit aboveUnit;
 
     protected void Awake()

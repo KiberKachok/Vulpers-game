@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Caravan : Unit
 {
+    [Header("Ресурсы")]
     public float Gold = 0;
     public float Iron = 0;
     public float Food = 0;

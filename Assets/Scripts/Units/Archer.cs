@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class Archer : Unit, IDam
 {
-    Coroutine attackProcess;
+    [Header("Показатели")]
+    public float Damage = 30;
+    public float AttackTime = 0.4f;
 
+    [HideInInspector]
     public bool isAttacking = false;
 
-    public float AttackTime = 0.4f;
-    public float Damage = 30;
+    [HideInInspector]
     public bool isUpped = false;
+
+    Coroutine attackProcess;
     // Start is called before the first frame update
     void Start()
     {

@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class General : Unit, IDam
 {
-    Coroutine attackProcess;
+    [Header("Показатели")]
+    public float Damage = 30;
+    public float DamageUpgrade = 40;
+    public float AttackTime = 0.4f;
 
+    [HideInInspector]
     public bool isAttacking = false;
 
-    public float AttackTime = 0.4f;
-    public float Damage = 30;
+    [HideInInspector]
     public bool isUpped = false;
 
-    public float DamageUpgrade = 40;
+    Coroutine attackProcess;
     // Start is called before the first frame update
     void Start()
     {

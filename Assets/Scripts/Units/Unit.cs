@@ -6,18 +6,20 @@ using Magic;
 
 public class Unit : MonoBehaviour
 {
-    [SerializeField]
-    GameController gameController;
-
-    public Hex underHex;
-    Coroutine moveProcess;
-
+    [Header("Состояния")]
     public float currentHp = 100;
     public float maxHp = 100;
-
-    public bool isMoving = false;
-
     public Team team;
+
+    GameController gameController;
+
+    [HideInInspector]
+    public Hex underHex;
+
+    Coroutine moveProcess;
+
+    [HideInInspector]
+    public bool isMoving = false;
 
     public void Start()
     {

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Field : Structure
 {
+    [Header("Показатели")]
     public float Food = 0;
-
     public float growTick = 1f;
-
     public float growPerTick = 20;
 
+    [Space(10)]
     public Farm farm;
 
     Coroutine growProcess;

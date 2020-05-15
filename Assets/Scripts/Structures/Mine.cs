@@ -5,26 +5,19 @@ using Magic;
 
 public class Mine : Structure, IRes
 {
-    //public ResourceState state;
+    [Header("Показатели")]
+    public float mineTick = 3f;
+    public float minePerTick = 1f;
+
+    [Space(10)]
     public Village village;
 
     Coroutine mine;
-
-    public float mineTick = 3f;
-    public float minePerTick = 1f;
 
     // Start is called before the first frame update
     void Start()
     {
         base.Start();
-        //if (village.state != VillageState.Ruined)
-        //{
-        //    Activate();
-        //}
-        //else
-        //{
-        //    Deactivate();
-        //}
     }
 
     // Update is called once per frame

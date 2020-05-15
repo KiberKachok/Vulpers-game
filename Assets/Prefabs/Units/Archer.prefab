@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4675645154771069459}
+  - component: {fileID: 4675645154771069458}
   - component: {fileID: 4675645154771069457}
   - component: {fileID: 4675645154771069456}
   - component: {fileID: 4675645154771069463}
-  - component: {fileID: 4675645154771069458}
   m_Layer: 0
   m_Name: Archer
   m_TagString: Units
@@ -34,6 +34,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4675645154771069458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4675645154771069462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9178ecebd697ab547abafb307fd73d26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHp: 100
+  maxHp: 100
+  team: 2
+  underHex: {fileID: 0}
+  isMoving: 0
+  Damage: 30
+  AttackTime: 0.4
+  isAttacking: 0
+  isUpped: 0
 --- !u!33 &4675645154771069457
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -94,25 +115,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4675645154771069458
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4675645154771069462}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9178ecebd697ab547abafb307fd73d26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameController: {fileID: 0}
-  underHex: {fileID: 0}
-  currentHp: 100
-  maxHp: 100
-  isMoving: 0
-  team: 2
-  isAttacking: 0
-  AttackTime: 0.4
-  Damage: 30
-  isUpped: 0

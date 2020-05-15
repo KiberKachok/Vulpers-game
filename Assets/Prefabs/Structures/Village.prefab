@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5684440424902964147}
+  - component: {fileID: 8698818859645321633}
   - component: {fileID: 3726788949637138821}
   - component: {fileID: 6954894447124608380}
-  - component: {fileID: 8698818859645321633}
   - component: {fileID: 8698818859645321646}
   m_Layer: 0
   m_Name: Village
@@ -34,6 +34,60 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8698818859645321633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8698818859645321632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c4359bcbd114e246af27746745d4cb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHp: 100
+  maxHp: 100
+  team: 1
+  underHex: {fileID: 0}
+  state: 0
+  Gold: 50
+  Iron: 0
+  Food: 100
+  Wood: 0
+  valueIron: 6
+  valueFood: 6
+  valueWood: 6
+  hungerTick: 1
+  goldTick: 1
+  goldPerTick: 0
+  WorkerTime: 2
+  WarriorTime: 2
+  ArcherTime: 2
+  CaravanTime: 2
+  ScoutTime: 2
+  WorkerPref: {fileID: 7099145952012893073, guid: 8f97fc7e97bfae648bbd886b55b7efe4,
+    type: 3}
+  WarriorPref: {fileID: 3828772401743547121, guid: eb39bc6419623f64884248c399783755,
+    type: 3}
+  ArcherPref: {fileID: 4675645154771069462, guid: fd3b67bd83c6d484da6654f2c21c239b,
+    type: 3}
+  CaravanPref: {fileID: 8048483125819934811, guid: 9ccf5b7139ef9724e9f01afb227de06e,
+    type: 3}
+  ScoutPref: {fileID: 8012312605355865712, guid: 14df6629470c6db4483bde341a466905,
+    type: 3}
+  BuildTime: 2
+  minePref: {fileID: 5581601762325707916, guid: 5c4ca7ba2a375d74ea69d1f72f17edc7,
+    type: 3}
+  farmPref: {fileID: 6850817722977623390, guid: 630ba7f657e00404bb2bc9d0b54c8e09,
+    type: 3}
+  sawmillPref: {fileID: 4407190621492243922, guid: 710dad5a195851c4985fa68952f9c048,
+    type: 3}
+  spawnHex: {fileID: 0}
+  structures:
+  - {fileID: 0}
+  - {fileID: 0}
+  isCreating: 0
 --- !u!33 &3726788949637138821
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -81,63 +135,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &8698818859645321633
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8698818859645321632}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c4359bcbd114e246af27746745d4cb9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameController: {fileID: 0}
-  currentHp: 100
-  maxHp: 100
-  underHex: {fileID: 0}
-  team: 1
-  Gold: 50
-  Iron: 0
-  Food: 100
-  Wood: 0
-  valueIron: 6
-  valueFood: 6
-  valueWood: 6
-  hungerTick: 1
-  goldTick: 1
-  goldPerTick: 0
-  spawnHex: {fileID: 0}
-  state: 0
-  WorkerTime: 2
-  WarriorTime: 2
-  ArcherTime: 2
-  CaravanTime: 2
-  ScoutTime: 2
-  WorkerPref: {fileID: 7099145952012893073, guid: 8f97fc7e97bfae648bbd886b55b7efe4,
-    type: 3}
-  WarriorPref: {fileID: 3828772401743547121, guid: eb39bc6419623f64884248c399783755,
-    type: 3}
-  ArcherPref: {fileID: 4675645154771069462, guid: fd3b67bd83c6d484da6654f2c21c239b,
-    type: 3}
-  CaravanPref: {fileID: 8048483125819934811, guid: 9ccf5b7139ef9724e9f01afb227de06e,
-    type: 3}
-  ScoutPref: {fileID: 8012312605355865712, guid: 14df6629470c6db4483bde341a466905,
-    type: 3}
-  BuildTime: 2
-  structures:
-  - {fileID: 0}
-  - {fileID: 0}
-  isCreating: 0
-  minePref: {fileID: 5581601762325707916, guid: 5c4ca7ba2a375d74ea69d1f72f17edc7,
-    type: 3}
-  farmPref: {fileID: 6850817722977623390, guid: 630ba7f657e00404bb2bc9d0b54c8e09,
-    type: 3}
-  sawmillPref: {fileID: 4407190621492243922, guid: 710dad5a195851c4985fa68952f9c048,
-    type: 3}
-  HEXTOBILD: {fileID: 0}
-  TIP: 0
 --- !u!64 &8698818859645321646
 MeshCollider:
   m_ObjectHideFlags: 0

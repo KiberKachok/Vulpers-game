@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Worker : Unit
 {
-    Coroutine walking = null;
-
-
+    [Header("Показатели")]
     public float repairTick = 1;
     public float repairPerTick = 1;
+
+    Coroutine walking = null;
+
     // Start is called before the first frame update
     void Start()
     {

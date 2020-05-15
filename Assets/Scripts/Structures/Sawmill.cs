@@ -5,27 +5,19 @@ using Magic;
 
 public class Sawmill : Structure, IRes
 {
-    //public ResourceState state;
+    [Header("Показатели")]
+    public float cutTick = 3f;
+    public float cutPerTick = 1f;
+
+    [Space(10)]
     public Village village;
 
     Coroutine cut;
-
-    public float cutTick = 3f;
-    public float cutByTick = 1f;
 
     // Start is called before the first frame update
     void Start()
     {
         base.Start();
-
-        //if(village.state != VillageState.Ruined)
-        //{
-        //    Activate();
-        //}
-        //else
-        //{
-        //    Deactivate();
-        //}
     }
 
     // Update is called once per frame
@@ -76,9 +68,9 @@ public class Sawmill : Structure, IRes
 
             if (forestToCut != null)
             {
-                forestToCut.Wood -= cutByTick;
-                village.Wood += cutByTick;
-                Debug.Log("В городе " + village.name + " +" + cutByTick + " дерева от лесопилки: " + name);
+                forestToCut.Wood -= cutPerTick;
+                village.Wood += cutPerTick;
+                Debug.Log("В городе " + village.name + " +" + cutPerTick + " дерева от лесопилки: " + name);
             }
         }
     }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Ore : Hex
 {
+    [Header("Показатели")]
     public float Iron = 0;
 
     private void Awake()

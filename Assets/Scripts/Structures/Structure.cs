@@ -5,15 +5,15 @@ using Magic;
 
 public class Structure : MonoBehaviour
 {
-    [SerializeField]
-    GameController gameController;
 
+    [Header("Состояния")]
     public float currentHp = 100;
     public float maxHp = 100;
-
-    public Hex underHex;
-
     public Team team = Team.Neutral;
+
+    GameController gameController;
+    [HideInInspector]
+    public Hex underHex;
 
     // Start is called before the first frame update
     protected void Start()

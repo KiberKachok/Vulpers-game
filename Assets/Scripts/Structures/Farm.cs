@@ -5,29 +5,25 @@ using Magic;
 
 public class Farm : Structure, IRes
 {
-    //public ResourceState state;
+    [Header("Показатели")]
     public float GrowKoef = 1;
     public float CheckTick = 5;
+
+    [Space(10)]
     public Village village;
 
+    [Space(10)]
     [SerializeField]
     GameObject fieldPref;
 
     Coroutine growCow;
 
-    List<Field> fields = new List<Field>();
+    [Space(10)]
+    public List<Field> fields = new List<Field>();
     // Start is called before the first frame update
     void Start()
     {
         base.Start();
-        //if (village.state != VillageState.Ruined)
-        //{
-        //    Activate();
-        //}
-        //else
-        //{
-        //    Deactivate();
-        //}
     }
 
     // Update is called once per frame

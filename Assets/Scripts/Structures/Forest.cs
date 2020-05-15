@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Forest : Structure
 {
+    [Header("Показатели")]
     public float Wood = 100;
 
     // Start is called before the first frame update
