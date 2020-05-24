@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraController : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         oriental.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
-        if (Input.mousePosition.x / Screen.width < 1 && Input.mousePosition.x / Screen.width > 0 && Input.mousePosition.y / Screen.height < 1 && Input.mousePosition.y / Screen.height > 0)
+        if (Input.mousePosition.x / Screen.width < 1 && Input.mousePosition.x / Screen.width > 0 && Input.mousePosition.y / Screen.height < 1 && Input.mousePosition.y / Screen.height > 0 && (!EventSystem.current.IsPointerOverGameObject()))
         {
             if (Input.mousePosition.x / Screen.width > horScreenPart)
             {

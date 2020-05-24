@@ -12,10 +12,10 @@ public class Hex : MonoBehaviour
     [HideInInspector]
     GameController gameController;
 
-    [HideInInspector]
+    //[HideInInspector]
     public Structure aboveStructure;
 
-    [HideInInspector]
+    //[HideInInspector]
     public Unit aboveUnit;
 
     protected void Awake()
@@ -23,22 +23,11 @@ public class Hex : MonoBehaviour
         AddHex();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void OnStep(Unit unit)
     {
         if (aboveStructure && aboveStructure as Field)
         {
+            (aboveStructure as Field).farm.fields.Remove(aboveStructure as Field);
             Destroy(aboveStructure.gameObject);
             if (unit.team != Team.Neutral)
             {

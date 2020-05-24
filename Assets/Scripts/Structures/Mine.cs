@@ -9,6 +9,8 @@ public class Mine : Structure, IRes
     public float mineTick = 3f;
     public float minePerTick = 1f;
 
+    public bool isAboveOre;
+
     [Space(10)]
     public Village village;
 
@@ -40,21 +42,17 @@ public class Mine : Structure, IRes
 
     IEnumerator MineProcess()
     {
-        Ore ore = underHex as Ore;
+        if (underHex as Ore)
+        {
+            isAboveOre = true;
+        }
 
         while (true)
         {
             yield return new WaitForSeconds(mineTick);
 
-            if (ore.Iron > 0)
-            {
-                ore.Iron -= minePerTick;
-                village.Iron += minePerTick;
-                Debug.Log("В городе " + village.name + " +" + minePerTick + " железо от шахты: " + name);
-            }
-
-            village.Iron += minePerTick;
-            Debug.Log("В городе " + village.name + " +" + minePerTick + " железо от шахты: " + name);
+            village.Iron += minePerTick + minePerTick * (isAboveOre ? 1 : 0);
+            //Debug.Log("В городе " + village.name + " +" + minePerTick + " железо от шахты: " + name);
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UB.Simple2dWeatherEffects.Standard;
 
 public class TradeTab : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class TradeTab : MonoBehaviour
     public TextMeshProUGUI foodVillageText;
 
     public TextMeshProUGUI totalAmountText;
+
+    [SerializeField]
+    D2FogsPE fog;
 
     [SerializeField]
     GameObject Wrap;
@@ -60,6 +64,7 @@ public class TradeTab : MonoBehaviour
         totalAmount = 0;
 
         isTrading = true;
+
     }
 
     public void StopTrade()
@@ -68,6 +73,7 @@ public class TradeTab : MonoBehaviour
         Time.timeScale = 1f;
 
         isTrading = false;
+
     }
 
     public void AddCaravanWood()

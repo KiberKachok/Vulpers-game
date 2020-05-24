@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 4407190621492243922}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.7320508, y: 0, z: 3}
-  m_LocalScale: {x: 0.7, y: 0.5, z: 0.7}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -46,15 +46,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80727c98952ce324a90df39417e32c79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameController: {fileID: 0}
   currentHp: 100
   maxHp: 100
-  underHex: {fileID: 0}
   team: 2
-  state: 0
-  village: {fileID: 0}
+  underHex: {fileID: 0}
   cutTick: 3
-  cutByTick: 1
+  cutPerTick: 1
+  village: {fileID: 0}
 --- !u!33 &4407190621492243920
 MeshFilter:
   m_ObjectHideFlags: 0

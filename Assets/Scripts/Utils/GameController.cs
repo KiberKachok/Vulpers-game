@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Magic;
 
 public class GameController : MonoBehaviour
@@ -10,14 +11,24 @@ public class GameController : MonoBehaviour
     Camera _camera;
 
     [SerializeField]
-    Unit focusedUnit = null;
+    private GameObject fogObj;
+
+    public Unit focusedUnit = null;
+
+    [SerializeField]
+    Village focusedVillage = null;
+
+    [SerializeField]
+    GameObject HighlightPref;
 
     public Dictionary<Vector2, Hex> HexDict = new Dictionary<Vector2, Hex>();
+    Coroutine highlightingProcess;
 
     // Start is called before the first frame update
     void Start()
     {
         ToNeighbours();
+        highlightingProcess = StartCoroutine(Highlighting());
     }
 
     [SerializeField]
@@ -26,10 +37,103 @@ public class GameController : MonoBehaviour
     [SerializeField]
     TradeTab tradeTab;
 
+    //[SerializeField]
+    //VillageTab villageTab;
+
+    IEnumerator Highlighting()
+    {
+        List<GameObject> highlightHexs = new List<GameObject>();
+        Unit newFocused = null;
+        Hex newFocusedUnderhex = null;
+        while (true)
+        {
+            if (focusedUnit != newFocused)
+            {
+                foreach (GameObject i in highlightHexs.GetRange(0, highlightHexs.Count))
+                {
+                    if (i)
+                    {
+                        highlightHexs.Remove(i);
+                        Destroy(i);
+                    }
+                }
+
+                if (focusedUnit)
+                {
+                    if (!focusedUnit.isMoving && highlightHexs.Count == 0)
+                    {
+                        foreach (Hex i in focusedUnit.underHex.neighbours)
+                        {
+                            if (i && !i.aboveUnit && (!i.aboveStructure || i.aboveStructure as Field))
+                            {
+                                highlightHexs.Add(Instantiate(HighlightPref, i.transform.position + new Vector3(0, 0.01f, 0), Quaternion.identity));
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (focusedUnit)
+                {
+                    if (newFocusedUnderhex != focusedUnit.underHex)
+                    {
+                        foreach (GameObject i in highlightHexs.GetRange(0, highlightHexs.Count))
+                        {
+                            if (i)
+                            {
+                                highlightHexs.Remove(i);
+                                Destroy(i);
+                            }
+                        }
+
+                        if (focusedUnit)
+                        {
+                            if (!focusedUnit.isMoving && highlightHexs.Count == 0)
+                            {
+                                foreach (Hex i in focusedUnit.underHex.neighbours)
+                                {
+                                    if (i && !i.aboveUnit && (!i.aboveStructure || i.aboveStructure as Field))
+                                    {
+                                        highlightHexs.Add(Instantiate(HighlightPref, i.transform.position + new Vector3(0, 0.01f, 0), Quaternion.identity));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (GameObject i in highlightHexs.GetRange(0, highlightHexs.Count))
+                    {
+                        if (i)
+                        {
+                            highlightHexs.Remove(i);
+                            Destroy(i);
+                        }
+                    }
+                }
+            }
+
+            newFocused = focusedUnit;
+            if (focusedUnit && !focusedUnit.isMoving)
+            {
+                newFocusedUnderhex = focusedUnit.underHex;
+            }
+
+            yield return new WaitForFixedUpdate();
+        }
+    }
+
+    public void Stringer(string str)
+    {
+
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && (!EventSystem.current.IsPointerOverGameObject()))
         {
             Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -85,6 +189,8 @@ public class GameController : MonoBehaviour
                                     }
                                 }
                             }
+
+                            //villageTab.StopVillageGUI();
                         }
                         break;
 
@@ -104,6 +210,8 @@ public class GameController : MonoBehaviour
                                     focusedUnit = null;
                                 }
                             }
+
+                            //villageTab.StopVillageGUI();
                         }
                         break;
                     
@@ -122,6 +230,8 @@ public class GameController : MonoBehaviour
                             
                             if (focusedUnit)
                             {
+                                //villageTab.StopVillageGUI();
+
                                 //Если в радиусе юнита - то:
                                 if (focusedUnit.underHex.neighbours.Contains(raycastStructure.underHex))
                                 {
@@ -170,6 +280,9 @@ public class GameController : MonoBehaviour
                                             (focusedUnit as Archer).Attack(raycastStructure);
                                         }
                                     }
+
+
+                                    //Про торговца тут
                                     else if (focusedUnit as Caravan)
                                     {
                                         if(raycastStructure as Village && (raycastStructure as Village).state == VillageState.Active)
@@ -184,8 +297,6 @@ public class GameController : MonoBehaviour
                                             }
                                         }
                                     }
-
-                                    //Про торговца тут
                                 }
                                 else if (focusedUnit as Archer)
                                 {
@@ -206,6 +317,15 @@ public class GameController : MonoBehaviour
                             else
                             {
                                 //ЧТО ТО СВЯЗАННОЕ С ПРОКАЧКОЙ ГОРОДА :D
+                                //пришло время её написать, но мне нравится этот смайл, не буду удалять
+
+                                if (raycastStructure as Village && raycastStructure.team == Team.Our)
+                                {
+                                    focusedVillage = raycastStructure as Village;
+
+                                    //villageTab.StopVillageGUI();
+                                    //villageTab.StartVillageGUI(focusedVillage);
+                                }
                             }
 
                             

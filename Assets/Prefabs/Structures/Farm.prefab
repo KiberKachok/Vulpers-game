@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 6850817722977623390}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.196152, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.5, z: 0.7}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -46,17 +46,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8577cdf3a67883489ee355e4750ab53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameController: {fileID: 0}
   currentHp: 100
   maxHp: 100
-  underHex: {fileID: 0}
   team: 0
-  state: 0
+  underHex: {fileID: 0}
+  allowedFields: 0
   GrowKoef: 1
   CheckTick: 5
   village: {fileID: 0}
   fieldPref: {fileID: 243102715893618814, guid: db40ce123757fd8408c04dd09d46e383,
     type: 3}
+  fields: []
 --- !u!33 &6850817722977623376
 MeshFilter:
   m_ObjectHideFlags: 0

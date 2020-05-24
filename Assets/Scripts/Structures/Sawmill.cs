@@ -70,7 +70,7 @@ public class Sawmill : Structure, IRes
             {
                 forestToCut.Wood -= cutPerTick;
                 village.Wood += cutPerTick;
-                Debug.Log("В городе " + village.name + " +" + cutPerTick + " дерева от лесопилки: " + name);
+                //Debug.Log("В городе " + village.name + " +" + cutPerTick + " дерева от лесопилки: " + name);
             }
         }
     }

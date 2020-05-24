@@ -6285,6 +6285,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 7869593307254265855}
   - {fileID: 120430296575865392}
   - {fileID: 120430296361023932}
   m_Father: {fileID: 120430295089402389}
@@ -9835,7 +9836,7 @@ RectTransform:
   - {fileID: 120430296382191677}
   - {fileID: 120430296569087309}
   m_Father: {fileID: 120430295779242356}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -9854,25 +9855,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93f9f1a62cab7c840910139a8206501f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyCaravan: 0
-  ironCaravan: 0
-  woodCaravan: 0
-  foodCaravan: 0
-  moneyVillage: 0
-  ironVillage: 0
-  woodVillage: 0
-  foodVillage: 0
   totalAmount: 0
-  woodCaravanText: {fileID: 120430294603326934}
   moneyCaravanText: {fileID: 120430295159396927}
-  foodCaravanText: {fileID: 120430295330642990}
+  woodCaravanText: {fileID: 120430294603326934}
   ironCaravanText: {fileID: 120430295566004354}
-  woodVillageText: {fileID: 120430295506034814}
+  foodCaravanText: {fileID: 120430295330642990}
   moneyVillageText: {fileID: 120430296711510907}
-  foodVillageText: {fileID: 120430295639077883}
+  woodVillageText: {fileID: 120430295506034814}
   ironVillageText: {fileID: 120430296564941132}
+  foodVillageText: {fileID: 120430295639077883}
   totalAmountText: {fileID: 120430295460411407}
+  fog: {fileID: 0}
   Wrap: {fileID: 120430296569087306}
+  isTrading: 0
 --- !u!114 &120430296361023935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9885,22 +9880,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2184ee4fe2c77034e9b255ffd4c13f4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyCaravan: 0
-  ironCaravan: 0
-  woodCaravan: 0
-  foodCaravan: 0
-  moneyVillage: 0
-  ironVillage: 0
-  woodVillage: 0
-  foodVillage: 0
-  woodCaravanText: {fileID: 120430294806982613}
   moneyCaravanText: {fileID: 120430294869836099}
-  foodCaravanText: {fileID: 120430295287663810}
+  woodCaravanText: {fileID: 120430294806982613}
   ironCaravanText: {fileID: 120430295441584712}
-  woodVillageText: {fileID: 120430296109548096}
+  foodCaravanText: {fileID: 120430295287663810}
   moneyVillageText: {fileID: 120430295877203907}
-  foodVillageText: {fileID: 120430296015306367}
+  woodVillageText: {fileID: 120430296109548096}
   ironVillageText: {fileID: 120430296367436786}
+  foodVillageText: {fileID: 120430296015306367}
+  fog: {fileID: 0}
   Wrap: {fileID: 120430296382191674}
 --- !u!1 &120430296365180756
 GameObject:
@@ -11191,7 +11179,7 @@ RectTransform:
   m_Children:
   - {fileID: 120430296675790346}
   m_Father: {fileID: 120430295779242356}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -12665,3 +12653,38 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &1250488554947644451
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7869593307254265855}
+  m_Layer: 5
+  m_Name: Spawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7869593307254265855
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1250488554947644451}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 120430295779242356}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}

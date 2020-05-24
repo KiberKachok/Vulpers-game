@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UB.Simple2dWeatherEffects.Standard;
 
 public class ShareTab : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class ShareTab : MonoBehaviour
     public TextMeshProUGUI woodVillageText;
     public TextMeshProUGUI ironVillageText;
     public TextMeshProUGUI foodVillageText;
+
+    [SerializeField]
+    D2FogsPE fog;
 
     [SerializeField]
     GameObject Wrap;
@@ -51,7 +55,7 @@ public class ShareTab : MonoBehaviour
         Wrap.SetActive(true);
         caravan = caravanf;
         village = villagef;
-        Time.timeScale = 0f;
+        //Time.timeScale = 0f;
 
         isSharing = true;
     }
@@ -59,7 +63,7 @@ public class ShareTab : MonoBehaviour
     public void StopShare()
     {
         Wrap.SetActive(false);
-        Time.timeScale = 1f;
+        //Time.timeScale = 1f;
 
         isSharing = false;
     }

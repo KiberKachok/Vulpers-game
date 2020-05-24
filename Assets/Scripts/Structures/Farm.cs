@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using Magic;
 
 public class Farm : Structure, IRes
 {
     [Header("Показатели")]
+    public int allowedFields;
     public float GrowKoef = 1;
     public float CheckTick = 5;
 
@@ -57,7 +59,7 @@ public class Farm : Structure, IRes
     public void Grow()
     {
         village.Food += GrowKoef;
-        Debug.Log("В городе " + village.name + " +1 еда от фермы: " + name);
+        //Debug.Log("В городе " + village.name + " +1 еда от фермы: " + name);
     }
 
     IEnumerator CheckAround()
@@ -65,11 +67,27 @@ public class Farm : Structure, IRes
         yield return null;
         while (true)
         {
+            //List<Hex> hexsAround = underHex.neighbours.ToList();
+            //List<Hex> ableAround = new List<Hex>();
+
+            //foreach (Hex hex in underHex.neighbours)
+            //{
+            //    if (!hex.aboveStructure && !hex.aboveUnit)
+            //    {
+            //        ableAround.Add(hex);
+            //    }
+            //}
+
+            //for (int i = 0; i < (allowedFields - fields.Count); i++)
+            //{
+            //}
+
             foreach (Hex hex in underHex.neighbours)
             {
-                if(!hex.aboveStructure && !hex.aboveUnit)
+                if(!hex.aboveStructure && !hex.aboveUnit && fields.Count < allowedFields)
                 {
                     Field field = Instantiate(fieldPref, hex.transform).GetComponent<Field>();
+                    fields.Add(field);
                     field.farm = this;
                     field.Align();
                 }

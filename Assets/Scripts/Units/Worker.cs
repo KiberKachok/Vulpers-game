@@ -31,12 +31,14 @@ public class Worker : Unit
         {
             yield return new WaitForSeconds(repairTick);
 
-            foreach (Hex hex in underHex.neighbours)
+            if (underHex)
             {
-                if(hex && hex.aboveStructure && hex.aboveStructure.team == team)
+                foreach (Hex hex in underHex.neighbours)
                 {
-                    Debug.Log(hex.name);
-                    hex.aboveStructure.currentHp = hex.aboveStructure.currentHp + repairPerTick;
+                    if (hex && hex.aboveStructure && hex.aboveStructure.team == team)
+                    {
+                        hex.aboveStructure.currentHp = Mathf.Clamp(hex.aboveStructure.currentHp + repairPerTick, 0, hex.aboveStructure.maxHp);
+                    }
                 }
             }
         }

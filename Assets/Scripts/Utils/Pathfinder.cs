@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Magic;
+using System.Linq;
 
 public class Pathfinder : MonoBehaviour
 {
@@ -81,5 +83,38 @@ public class Pathfinder : MonoBehaviour
             }
         }
         return neighbours;
+    }
+
+    public static Village findNearestVillage(Vector3 point, List<Village> villages)
+    {
+        Village village = null;
+        float minDist = Mathf.Infinity;
+
+        foreach(Village i in villages)
+        {
+            if(i.team == Team.Our && Vector3.Distance(i.transform.position, point) < minDist)
+            {
+                minDist = Vector3.Distance(i.transform.position, point);
+                village = i;
+            }
+        }
+
+
+        return village;
+    }
+
+    public static List<Village> FindVillagesOfTeams(Team team)
+    {
+        List<Village> villages = FindObjectsOfType<Village>().ToList();
+
+        foreach(Village i in villages.GetRange(0, villages.Count() - 1))
+        {
+            if(i.team != team)
+            {
+                villages.Remove(i);
+            }
+        }
+
+        return villages;
     }
 }
