@@ -24,6 +24,12 @@ public class GameController : MonoBehaviour
     public Dictionary<Vector2, Hex> HexDict = new Dictionary<Vector2, Hex>();
     Coroutine highlightingProcess;
 
+    [ContextMenu("Clean")]
+    public void DictCleaner()
+    {
+        HexDict = new Dictionary<Vector2, Hex>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -197,7 +203,7 @@ public class GameController : MonoBehaviour
                     case "Ground":
                         {
                             Hex raycastHex = hit.collider.gameObject.GetComponent<Hex>();
-                            Debug.Log("Хекс: " + raycastHex.name);
+                            //Debug.Log("Хекс: " + raycastHex.name);
 
                             if (focusedUnit)
                             {
@@ -246,7 +252,7 @@ public class GameController : MonoBehaviour
                                                 rayVillage.state = VillageState.Active;
                                                 rayVillage.team = focusedUnit.team;
                                                 rayVillage.Activate();
-
+                                                focusedUnit.underHex = null;
                                                 Destroy(focusedUnit.gameObject);
                                                 focusedUnit = null;
                                             }

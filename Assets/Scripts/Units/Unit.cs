@@ -34,23 +34,32 @@ public class Unit : MonoBehaviour
     {
         if(!isMoving && underHex.neighbours.Contains(hex) && (hex.aboveStructure == null || hex.aboveStructure as Field) && hex.aboveUnit == null)
         {
-            underHex.aboveUnit = null;
-            underHex = hex;
-            underHex.aboveUnit = this;
-            hex.OnStep(this);
+            //underHex.aboveUnit = null;
+            //underHex = hex;
+            //underHex.aboveUnit = this;
+            //hex.OnStep(this);
             moveProcess = StartCoroutine(MoveCommand(hex));
         }
     }
 
-    IEnumerator MoveCommand(Hex hex)
+    public IEnumerator MoveCommand(Hex hex)
     {
-        isMoving = true;
-        while (transform.position != hex.transform.position)
+        if (!isMoving && underHex.neighbours.Contains(hex) && (hex.aboveStructure == null || hex.aboveStructure as Field) && hex.aboveUnit == null)
         {
-            transform.position = Vector3.MoveTowards(transform.position, hex.transform.position, Time.deltaTime * 2f);
-            yield return null;
+            underHex.aboveUnit = null;
+            underHex = hex;
+            underHex.aboveUnit = this;
+            hex.OnStep(this);
+            //moveProcess = StartCoroutine(MoveCommand(hex));
+
+            isMoving = true;
+            while (transform.position != hex.transform.position)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, hex.transform.position, Time.deltaTime * 2f);
+                yield return null;
+            }
+            isMoving = false;
         }
-        isMoving = false;
     }
 
     [ContextMenu("Выровнять")]

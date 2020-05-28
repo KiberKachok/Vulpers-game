@@ -64,6 +64,59 @@ public class Pathfinder : MonoBehaviour
         return path;
     }
 
+    static public List<Hex> PathForUnits(Hex start, Hex finish)
+    {
+        //Точка, и откуда в неё пришли
+        Dictionary<Hex, Hex> HexsParents = new Dictionary<Hex, Hex>();
+
+        Queue<Hex> queue = new Queue<Hex>();
+        HashSet<Hex> exploredHexs = new HashSet<Hex>();
+        queue.Enqueue(start);
+
+        while (queue.Count != 0)
+        {
+            Hex current = queue.Dequeue();
+            if (current == finish)
+            {
+                break;
+            }
+
+            Hex[] neighbours = new Hex[] { };
+            if (current)
+            {
+                neighbours = current.neighbours;
+            }
+
+            foreach (Hex hex in neighbours)
+            {
+                if (hex != null && !exploredHexs.Contains(hex) && (!hex.aboveStructure || hex == finish || hex.aboveStructure as Field) && (!hex.aboveUnit || hex == finish))
+                {
+                    exploredHexs.Add(hex);
+                    HexsParents.Add(hex, current);
+                    queue.Enqueue(hex);
+                }
+            }
+        }
+
+        Hex currentDraw = finish;
+        List<Hex> path = new List<Hex>();
+        while (currentDraw != start)
+        {
+            if (HexsParents.ContainsKey(currentDraw))
+            {
+                path.Add(currentDraw);
+                currentDraw = HexsParents[currentDraw];
+            }
+            else
+            {
+                return new List<Hex>();
+            }
+        }
+
+        path.Reverse();
+        return path;
+    }
+
     public static List<Hex> neighboursReturner(Hex hex, int dimension)
     {
         List<Hex> neighbours = new List<Hex> { hex };

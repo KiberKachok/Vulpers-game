@@ -84,7 +84,7 @@ public class Farm : Structure, IRes
 
             foreach (Hex hex in underHex.neighbours)
             {
-                if(!hex.aboveStructure && !hex.aboveUnit && fields.Count < allowedFields)
+                if(hex && !hex.aboveStructure && !hex.aboveUnit && fields.Count < allowedFields)
                 {
                     Field field = Instantiate(fieldPref, hex.transform).GetComponent<Field>();
                     fields.Add(field);

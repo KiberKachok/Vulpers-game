@@ -14,6 +14,65 @@ public class Village : Structure
     public float Food = 0;
     public float Wood = 0;
 
+    public float HungerCoef
+    {
+        get
+        {
+            int fieldsCount = 0;
+
+            foreach(Structure structure in structures)
+            {
+                if(structure as Farm)
+                {
+                    fieldsCount += (structure as Farm).fields.Count;
+                }
+            }
+
+            return (float)(0.2 * fieldsCount - (1 / hungerTick));
+        }
+    }
+
+    public float SawmillCount
+    {
+        get
+        {
+            int sawmills = 0;
+
+            foreach (Structure structure in structures)
+            {
+                if (structure as Sawmill)
+                {
+                    sawmills++;
+                }
+            }
+
+            return sawmills;
+        }
+    }
+
+    public float MineCount
+    {
+        get
+        {
+            int mines = 0;
+
+            foreach (Structure structure in structures)
+            {
+                if (structure as Mine)
+                {
+                    mines++;
+                }
+            }
+
+            return mines;
+        }
+    }
+
+    private void OnMouseDown()
+    {
+        Debug.Log(HungerCoef);
+    }
+
     //от 1 до 10
     [Header("Цены")]
     public float valueIron = 6;
@@ -82,7 +141,7 @@ public class Village : Structure
     }
 
     public int levelFarm = 1;
-    private int[] upFarm = new int[5] { 2, 3, 4, 5, 6 };
+    private int[] upFarm = new int[5] { 6, 3, 4, 5, 6 };
 
     [ContextMenu("Апгрейд Фермы")]
     public void FarmUpgrade()
@@ -161,13 +220,13 @@ public class Village : Structure
         {UnitType.Warrior, new Vector2(12, 12)},
         {UnitType.Scout, new Vector2(13, 13)},
         {UnitType.Archer, new Vector2(14, 14)},
-        {UnitType.Caravan, new Vector2(15, 15)}
+        {UnitType.Caravan, new Vector2(10, 10)}
     };
 
     public Dictionary<ResourceType, Vector2> StructValues = new Dictionary<ResourceType, Vector2>
     {
-                                  // x - Золото - дерево
-        {ResourceType.Farm, new Vector2(11, 11)},
+                                  // x - Золото y - дерево
+        {ResourceType.Farm, new Vector2(10, 10)},
         {ResourceType.Mine, new Vector2(12, 10)},
         {ResourceType.Sawmill, new Vector2(13, 10)},
     };
@@ -314,16 +373,19 @@ public class Village : Structure
 
             GameObject res = Instantiate(objToSpawn, hex.transform.position - new Vector3(0, 0.4f, 0), Quaternion.identity);
             hex.aboveStructure = res.GetComponent<Structure>();
+
+            Structure structRes = res.GetComponent<Structure>();
+            structRes.underHex = hex;
+            structures.Add(structRes);
+
             for (int i = 0; i < 100; i++)
             {
-                yield return new WaitForFixedUpdate();
-                res.transform.position += new Vector3(0, 0.4f / 100, 0);
+                //yield return new WaitForFixedUpdate();
+                res.transform.position += new Vector3(0, -transform.position.y / 100, 0);
                 yield return new WaitForSeconds(BuildTime / 100f);
             }
 
             //res.transform.position = hex.transform.position;
-            Structure structRes = res.GetComponent<Structure>();
-            structRes.underHex = hex;
             switch (type)
             {
                 case ResourceType.Farm:
@@ -344,7 +406,6 @@ public class Village : Structure
 
             structRes.team = team;
             structRes.Align();
-            structures.Add(structRes);
             (structRes as IRes).Activate();
         }
     }
@@ -354,9 +415,9 @@ public class Village : Structure
         spawnProcess = StartCoroutine(CreateUnit(hex, type));
     }
 
-    IEnumerator CreateUnit(Hex hex, UnitType type)
+    public IEnumerator CreateUnit(Hex hex, UnitType type)
     {
-        if(!hex.aboveStructure && !hex.aboveUnit && Gold >= UnitValues[type].x && Iron >= UnitValues[type].y)
+        if((!hex.aboveStructure || (hex.aboveStructure && hex.aboveStructure as Field)) && !hex.aboveUnit && Gold >= UnitValues[type].x && Iron >= UnitValues[type].y)
         {
             Gold -= UnitValues[type].x;
             Iron -= UnitValues[type].y;
@@ -403,10 +464,110 @@ public class Village : Structure
             Destroy(hex.aboveUnit);
             hex.aboveUnit = null;
             Unit unit = Instantiate(objToSpawn, hex.transform.position + new Vector3(0, 0.1f, 0), Quaternion.identity).GetComponent<Unit>();
+
+            switch (type)
+            {
+                case UnitType.Archer:
+                    break;
+
+                case UnitType.Caravan:
+                    unit.gameObject.AddComponent<CaravanAI>();
+                    break;
+
+                case UnitType.Scout:
+                    break;
+
+                case UnitType.Warrior:
+                    break;
+
+                case UnitType.Worker:
+                    break;
+            }
+
             unit.team = team;
             unit.Align();
 
             isCreating = false;
+
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
+    public IEnumerator CreateUnit(Hex hex, UnitType type, string name)
+    {
+        if ((!hex.aboveStructure || (hex.aboveStructure && hex.aboveStructure as Field)) && !hex.aboveUnit && Gold >= UnitValues[type].x && Iron >= UnitValues[type].y)
+        {
+            Gold -= UnitValues[type].x;
+            Iron -= UnitValues[type].y;
+
+            isCreating = true;
+
+            hex.aboveUnit = Instantiate(WorkerPref, hex.transform.position + new Vector3(0, -10f, 0), Quaternion.identity).GetComponent<Unit>();
+
+            float timeToWait = 0.1f;
+            GameObject objToSpawn = WorkerPref;
+            switch (type)
+            {
+                case UnitType.Archer:
+                    timeToWait = ArcherTime / 100f;
+                    objToSpawn = ArcherPref;
+                    break;
+
+                case UnitType.Caravan:
+                    timeToWait = CaravanTime / 100f;
+                    objToSpawn = CaravanPref;
+                    break;
+
+                case UnitType.Scout:
+                    timeToWait = ScoutTime / 100f;
+                    objToSpawn = ScoutPref;
+                    break;
+
+                case UnitType.Warrior:
+                    timeToWait = WarriorTime / 100f;
+                    objToSpawn = WarriorPref;
+                    break;
+
+                case UnitType.Worker:
+                    timeToWait = WorkerTime / 100f;
+                    objToSpawn = WorkerPref;
+                    break;
+            }
+
+            for (int i = 0; i < 100; i++)
+            {
+                yield return new WaitForSeconds(timeToWait);
+            }
+
+            Destroy(hex.aboveUnit);
+            hex.aboveUnit = null;
+            Unit unit = Instantiate(objToSpawn, hex.transform.position + new Vector3(0, 0.1f, 0), Quaternion.identity).GetComponent<Unit>();
+            unit.name = name;
+            switch (type)
+            {
+                case UnitType.Archer:
+                    break;
+
+                case UnitType.Caravan:
+                    unit.gameObject.AddComponent<CaravanAI>();
+                    break;
+
+                case UnitType.Scout:
+                    break;
+
+                case UnitType.Warrior:
+                    break;
+
+                case UnitType.Worker:
+                    break;
+            }
+
+            unit.team = team;
+            unit.Align();
+
+            isCreating = false;
+
+            yield return new WaitForEndOfFrame();
         }
     }
 
@@ -439,7 +600,11 @@ public class Village : Structure
                 if (i as Farm)
                 {
                     //levelFarm = 1;
-                    (i as Farm).allowedFields = upFarm[levelFarm - 1];
+                    (i as Farm).village = this;
+                    if((i as Farm).allowedFields < upFarm[levelFarm - 1])
+                    {
+                        (i as Farm).allowedFields = upFarm[levelFarm - 1];
+                    }
                 }
             }
         }

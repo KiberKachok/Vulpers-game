@@ -48,7 +48,7 @@ public class Sawmill : Structure, IRes
 
             foreach (Hex hex in underHex.neighbours)
             {
-                if (hex.aboveStructure as Forest)
+                if (hex && hex.aboveStructure as Forest)
                 {
                     forests.Add(hex.aboveStructure as Forest);
                 }
